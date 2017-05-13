@@ -11,5 +11,11 @@ public class GameManagerEditor : Editor {
 			GameManager manager = target as GameManager;
 			manager.QuitGame ();
 		}
+		if (GUILayout.Button ("SwitchLevel")) {
+			if (PhotonNetwork.isMasterClient) {
+				GameManager manager = target as GameManager;
+				manager.SwitchLevel ();
+			}
+		}
 	}
 }

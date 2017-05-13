@@ -6,6 +6,7 @@ public class Launcher : Photon.PunBehaviour {
 	public string version = "1";
 	public PhotonLogLevel logLevel = PhotonLogLevel.Informational;
 	public string playerName;
+	bool connecting = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -17,16 +18,20 @@ public class Launcher : Photon.PunBehaviour {
 
 
 	void Start() {
-		Connect ();
+
 	}
 
-	void Connect () {
+	public void Connect () {
+		connecting = true;
 		PhotonNetwork.ConnectUsingSettings (version);
 	}
 
-	public override void OnConnectedToMaster () {
-		Debug.Log ("joining random room");
-		PhotonNetwork.JoinRandomRoom();
+	public override void OnConnectedToMaster () {		
+		if (connecting) {
+			Debug.Log ("joining random room");
+			connecting = false;
+			PhotonNetwork.JoinRandomRoom ();
+		}
 	}
 
 	public override void OnDisconnectedFromPhoton()	{
@@ -39,5 +44,8 @@ public class Launcher : Photon.PunBehaviour {
 
 	public override void OnJoinedRoom () {
 		Debug.Log ("joined room");
+		if (PhotonNetwork.room.PlayerCount == 1) {
+			PhotonNetwork.LoadLevel ("Level1");
+		}
 	}
 }
