@@ -14,6 +14,7 @@ public class GameManager  : Photon.PunBehaviour {
 
 	public void SwitchLevel() {
 		int index = SceneManager.GetActiveScene ().buildIndex;
+
 		if (index == 1) {
 			SceneManager.LoadScene (2);
 		} else {
