@@ -9,7 +9,7 @@ public class GameManager  : Photon.PunBehaviour {
 
 	void Start()  {
 		INSTANCE = this;
-		PhotonNetwork.Instantiate (playerPrefab.name, new Vector3 (0f, 0.5f, 0f), Quaternion.identity, 0);
+		PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0f, 0.5f, 0f), Quaternion.identity, 0);
 	}
 
 	public override void OnLeftRoom () {

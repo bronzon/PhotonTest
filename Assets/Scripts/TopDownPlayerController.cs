@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TopDownPlayerController : MonoBehaviour {
+public class TopDownPlayerController : Photon.MonoBehaviour {
     public float speed = 0.3f;
     private Rigidbody rigidbody;
 
 
     private void Start() {
         rigidbody = GetComponent<Rigidbody>();
+        if (!photonView.isMine) {
+            Destroy(this);
+        }
     }
 
     void FixedUpdate() {
