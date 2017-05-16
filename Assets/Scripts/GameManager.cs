@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameManager  : Photon.PunBehaviour {
 	public static GameManager INSTANCE;
 	public GameObject playerPrefab;
+	public GameObject playerInstance;
 
 	void Start()  {
 		INSTANCE = this;
-		PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0f, 0.5f, 0f), Quaternion.identity, 0);
+		playerInstance = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0f, 0.5f, 0f), Quaternion.identity, 0);
 	}
 
 	public override void OnLeftRoom () {
@@ -17,17 +18,14 @@ public class GameManager  : Photon.PunBehaviour {
 	}
 
 	public void QuitGame() {
+		PhotonNetwork.Destroy(playerInstance);
 		PhotonNetwork.LeaveRoom ();
 	}
 
 	public void SwitchLevel() {
 		if (PhotonNetwork.isMasterClient) {
 			int index = SceneManager.GetActiveScene ().buildIndex;
-			if (index == 1) {
-				SceneManager.LoadScene (2);
-			} else {
-				SceneManager.LoadScene (1);
-			}
+			SceneManager.LoadScene(index == 1 ? 2 : 1);
 		}
 	}
 
@@ -42,4 +40,5 @@ public class GameManager  : Photon.PunBehaviour {
 		Debug.Log( "OnPhotonPlayerConnected() " + otherPlayer.NickName );
 		//blabla
 	}
+
 }

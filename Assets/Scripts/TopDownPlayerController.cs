@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TopDownPlayerController : Photon.MonoBehaviour {
+public class TopDownPlayerController : Photon.PunBehaviour {
     public float speed = 0.3f;
     private Rigidbody rigidbody;
 
@@ -50,5 +50,27 @@ public class TopDownPlayerController : Photon.MonoBehaviour {
 
     void OnCollisionEnter(Collision collision) {
         Debug.Log("collision");
+    }
+
+
+    public override void OnPhotonInstantiate(PhotonMessageInfo info) {
+        print("someone instantiated");
+        if (info.sender.Equals(PhotonNetwork.player)) {
+            NetworkPlayers.INSTANCE.players.Add(info.photonView.gameObject);
+            NetworkPlayers.INSTANCE.playerGameObjectByPlayer[info.sender] = gameObject;
+        }
+    }
+
+    public override void OnPhotonPlayerConnected(PhotonPlayer otherPlayer) {
+        if (! NetworkPlayers.INSTANCE.playerGameObjectByPlayer.ContainsKey(otherPlayer)) {
+            NetworkPlayers.INSTANCE.playerGameObjectByPlayer[otherPlayer] = null;
+        }
+    }
+
+    public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer) {
+        if ( NetworkPlayers.INSTANCE.playerGameObjectByPlayer.ContainsKey(otherPlayer)) {
+            NetworkPlayers.INSTANCE.players.Remove( NetworkPlayers.INSTANCE.playerGameObjectByPlayer[otherPlayer]);
+            NetworkPlayers.INSTANCE.playerGameObjectByPlayer.Remove(otherPlayer);
+        }
     }
 }
