@@ -12,7 +12,7 @@ public class GameManager  : Photon.PunBehaviour {
 
 	private IEnumerator SpawnNextFrame() {
 		yield return new WaitForSeconds(4);
-		NetworkInstantiator.INSTANCE.SpawnPlayer(new Vector3(0,-5, 0), Quaternion.identity);
+		NetworkInstanceManagement.INSTANCE.SpawnPlayer(new Vector3(0,-5, 0), Quaternion.identity);
 	}
 
 	public override void OnLeftRoom () {
@@ -20,7 +20,7 @@ public class GameManager  : Photon.PunBehaviour {
 	}
 
 	public void QuitGame() {
-		PhotonNetwork.LeaveRoom ();
+		NetworkInstanceManagement.INSTANCE.QuitPlayer();
 	}
 
 	public void SwitchLevel() {
