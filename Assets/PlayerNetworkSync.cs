@@ -11,6 +11,7 @@ public class PlayerNetworkSync : Photon.MonoBehaviour {
 		if (onlySyncOutGoing) {
 			return;
 		}
+
 		playerObject.transform.rotation = transform.rotation;
 		playerObject.transform.position = transform.position;
 	}

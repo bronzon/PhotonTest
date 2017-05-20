@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NetworkInstantiator : Photon.PunBehaviour {
     public static NetworkInstantiator INSTANCE;
-
+    public Transform syncParent;
     public GameObject playerPrefab;
     public PlayerNetworkSync playerNetworkSyncPrefab;
 
@@ -27,8 +27,10 @@ public class NetworkInstantiator : Photon.PunBehaviour {
         playerNetworkSyncObject.playerObject = playerObject;
 
         if (photonPlayer.Equals(PhotonNetwork.player)) {
+            playerObject.GetComponent<MeshRenderer>().material.color = Color.blue;
             playerManager = playerObject.AddComponent<PlayerManager>();
             playerManager.playerNetworkSync = playerNetworkSyncObject;
+            playerNetworkSyncObject.transform.SetParent(syncParent);
             playerNetworkSyncObject.onlySyncOutGoing = true;
         }
     }

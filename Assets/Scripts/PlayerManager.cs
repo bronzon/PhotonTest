@@ -42,7 +42,8 @@ public class PlayerManager : MonoBehaviour {
             float rotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, rotation, 0);
         }
-        //playerNetworkSync.UpdateRemote();
+
+        playerNetworkSync.UpdateRemote();
 
     }
 
