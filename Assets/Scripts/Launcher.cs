@@ -17,10 +17,6 @@ public class Launcher : Photon.PunBehaviour {
 	}
 
 
-	void Start() {
-
-	}
-
 	public void Connect () {
 		connecting = true;
 		PhotonNetwork.ConnectUsingSettings (version);
