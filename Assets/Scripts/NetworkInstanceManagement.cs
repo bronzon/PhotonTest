@@ -38,7 +38,7 @@ public class NetworkInstanceManagement : Photon.PunBehaviour {
         syncObjectByPlayer[photonPlayer] = playerNetworkSyncObject;
     }
 
-    public void QuitPlayer() {
+    public void DespawnPlayer() {
         photonView.RPC("OnDespawnPlayer", PhotonNetwork.player);
         PhotonNetwork.LeaveRoom ();
     }

@@ -20,7 +20,7 @@ public class GameManager  : Photon.PunBehaviour {
 	}
 
 	public void QuitGame() {
-		NetworkInstanceManagement.INSTANCE.QuitPlayer();
+		NetworkInstanceManagement.INSTANCE.DespawnPlayer();
 	}
 
 	public void SwitchLevel() {
